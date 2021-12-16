@@ -37,14 +37,17 @@
     </div>
 </template>
 <script>
+    import SupportIco from 'components/support-ico'
     export default {
-        name: 'Header'
+        name: 'Header',
+        components: {
+            SupportIco
+        }
     }
 </script>
 <style lang="stylus" scoped>
     @import "~common/stylus/mixin"
     @import "~common/stylus/variable"
-
     .header
         position: relative
         overflow: hidden
