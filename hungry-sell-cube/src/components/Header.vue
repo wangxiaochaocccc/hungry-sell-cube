@@ -7,7 +7,7 @@
                 </div>
                 <div class="shop-info">
                     <div class="name-box">
-                        <span></span>
+                        <support-ico :size=1 :type=1></support-ico>
                         <span class="shop-name">无大量粥店</span>
                     </div>
                     <div class="distribution-box">
@@ -38,6 +38,7 @@
 </template>
 <script>
     import SupportIco from 'components/support-ico'
+
     export default {
         name: 'Header',
         components: {
