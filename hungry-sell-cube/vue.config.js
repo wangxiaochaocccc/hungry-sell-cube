@@ -50,5 +50,6 @@ module.exports = {
       .set('common', resolve('src/common'))
       .set('components', resolve('src/components'))
       .set('assets', resolve('src/assets/img'))
+      .set('api', resolve('src/api'))
   },
 }

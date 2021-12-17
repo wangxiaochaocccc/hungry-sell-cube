@@ -3,24 +3,24 @@
         <div class="header">
             <div class="content-wraper">
                 <div class="avatar">
-                    <img width="64" height="64" src="" alt="">
+                    <img width="64" height="64" :src="seller.avatar" alt="">
                 </div>
                 <div class="shop-info">
                     <div class="name-box">
-                        <support-ico :size=1 :type=1></support-ico>
-                        <span class="shop-name">无大量粥店</span>
+                        <span class="name-icon"></span>
+                        <span class="shop-name">{{seller.name}}</span>
                     </div>
                     <div class="distribution-box">
-                        蜂鸟转送/38分钟送达
+                        {{seller.description}}/预计{{seller.deliveryTime}}分钟送达
                     </div>
-                    <div class="dicount-box">
+                    <div class="dicount-box" v-if="seller.supports">
                         <div class="left">
-                            <span></span>
-                            <span class="dicount-price">满29减8</span>
+                            <support-ico :size=1 :type="seller.supports[0].type"></support-ico>
+                            <span class="dicount-price">{{seller.description}}</span>
                         </div>
                         <div class="right">
                             <div class="dicount-length">
-                                <span>5个</span>
+                                <span>{{seller.supports.length}}个</span>
                                 <i class="icon-keyboard_arrow_right"></i>
                             </div>
                         </div>
@@ -28,8 +28,8 @@
                 </div>
             </div>
             <div class="botton-notice">
-                <span class="notice-icon">111</span>
-                <span class="notice">2222222222222222222222222222222222222222222222222222</span>
+                <span class="notice-icon"></span>
+                <span class="notice">{{seller.bulletin}}</span>
                 <span class="icon-keyboard_arrow_right"></span>
             </div>
             <div class="background"></div>
@@ -41,6 +41,14 @@
 
     export default {
         name: 'Header',
+        props: {
+            seller: {
+                type: Object,
+                default() {
+                    return {}
+                }
+            }
+        },
         components: {
             SupportIco
         }
@@ -63,11 +71,20 @@
                 margin-left: 16px
                 .name-box
                     margin-bottom: 8px
+                    .name-icon
+                        display inline-block
+                        width: 30px
+                        height: 18px
+                        bg-image('~assets/header/brand')
+                        background-size: cover
+                        vertical-align: middle
+                        margin-right 5px
                     .shop-name
                         font-size: 16px
                         line-height: 18px
                         color: #fff
                         font-weight bold
+                        vertical-align: middle
                 .distribution-box
                     font-size: 12px
                     font-weight: 200
@@ -76,7 +93,12 @@
                     margin-bottom: 10px
                 .dicount-box
                     position relative
+                    span {
+                        vertical-align: middle
+                    }
                     .dicount-price
+                        display inline-block
+                        margin-left 4px
                         font-size: 12px
                         font-weight: 200
                         line-height: 12px
@@ -107,7 +129,10 @@
             padding: 0 8px
             .notice-icon
                 width: 22px
+                height: 12px
                 margin-right 4px
+                bg-image('~assets/header/bulletin')
+                background-size: cover
             .notice
                 flex: 0.95
                 overflow hidden
