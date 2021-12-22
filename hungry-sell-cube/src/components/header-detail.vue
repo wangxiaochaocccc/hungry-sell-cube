@@ -2,7 +2,7 @@
     <transition name="fade">
         <div class="header-detail">
             <h1>{{seller.name}}</h1>
-            <div class="star"></div>
+            <star :size=48 :score="seller.score"></star>
             <div class="title-box">
                 <div class="line"></div>
                 <div class="text">优惠信息</div>
@@ -30,13 +30,16 @@
 
 <script>
 import SupportIco from 'components/support-ico'
+import Star from 'components/star'
 
 export default {
     name: 'header-detail',
     props: ['seller'],
     components: {
-        SupportIco
+        SupportIco,
+        Star
     }
+
 }
 </script>
 <style lang="stylus" scoped>
@@ -68,10 +71,7 @@ export default {
             margin-top 64px
             margin-bottom 16px
         .star
-            width 300px
-            height 24px
-            background pink
-            margin 0 auto 28px
+            margin-bottom 28px
         .title-box
             display flex
             align-items: center
