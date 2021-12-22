@@ -1,6 +1,6 @@
 <template>
     <transition name="fade">
-        <div class="header-detail">
+        <div class="header-detail" v-show="visible">
             <h1>{{seller.name}}</h1>
             <star :size=48 :score="seller.score"></star>
             <div class="title-box">
@@ -21,7 +21,7 @@
             <div class="notice">
                 <div class="cont">{{seller.bulletin}}</div>
             </div>
-            <div class="cancle-btn">
+            <div class="cancle-btn" @click="hide">
                 <span class="icon-close"></span>
             </div>
         </div>
@@ -35,6 +35,19 @@ import Star from 'components/star'
 export default {
     name: 'header-detail',
     props: ['seller'],
+    data() {
+        return {
+            visible: false
+        }
+    },
+    methods: {
+        show() {
+            this.visible = true
+        },
+        hide() {
+            this.visible = false
+        }
+    },
     components: {
         SupportIco,
         Star

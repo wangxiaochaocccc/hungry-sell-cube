@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="header">
+        <div class="header" @click="showDetail">
             <div class="content-wraper">
                 <div class="avatar">
                     <img width="64" height="64" :src="seller.avatar" alt="">
@@ -47,6 +47,16 @@
                 default() {
                     return {}
                 }
+            }
+        },
+        methods: {
+            showDetail() {
+                this.$HeaderDetailComp = this.HeaderDetailComp || this.$createHeaderDetail({
+                    $props: {
+                        seller: 'seller'
+                    }
+                })
+                this.$HeaderDetailComp.show()
             }
         },
         components: {
