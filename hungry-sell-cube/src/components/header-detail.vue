@@ -114,16 +114,15 @@ export default {
             margin: 0 auto
             .cont
                 padding 0 12px
+                margin-bottom 64px
                 font-size 12px
                 line-height 24px
                 font-weight 200
                 color #fff
         .cancle-btn
-            position absolute
-            bottom 32px
-            left 170px
             width: 30px
             height: 30px
+            margin 0 auto 64px auto
             clear: both
             font-size: 32px
 </style>
