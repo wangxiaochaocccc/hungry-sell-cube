@@ -1,11 +1,13 @@
 <template>
   <div id="app">
     <Header :seller="seller"></Header>
+    <tab></tab>
   </div>
 </template>
 
 <script>
 import Header from 'components/Header'
+import Tab from 'components/tab'
 import { getSeller } from 'api'
 
 export default {
@@ -26,7 +28,8 @@ export default {
     }
   },
   components: {
-    Header
+    Header,
+    Tab
   }
 }
 </script>
