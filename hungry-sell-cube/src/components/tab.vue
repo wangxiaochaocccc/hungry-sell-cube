@@ -19,14 +19,8 @@
                 @scroll="onScroll"
                 :options="slideOption"
             >
-                <cube-slide-item>
-                    <goods></goods>
-                </cube-slide-item>
-                <cube-slide-item>
-                    <sellers></sellers>
-                </cube-slide-item>
-                <cube-slide-item>
-                    <ratings></ratings>
+                <cube-slide-item v-for="(item,index) in tabs" :key="index">
+                    <component :is='item.component' :data="item.data"></component>
                 </cube-slide-item>
             </cube-slide>
         </div>
@@ -34,21 +28,25 @@
 </template>
 
 <script>
-import Goods from 'components/goods'
-import Sellers from 'components/sellers'
-import Ratings from 'components/ratings'
 export default {
     name: 'tab',
+    props: {
+        tabs: {
+            type: Array,
+            default() {
+                return []
+            }
+        },
+        initialIndex: {
+            type: Number,
+            default() {
+                return 0
+            }
+        }
+    },
     data() {
         return {
-            index: 0,
-            tabs: [{
-                label: '商品'
-            }, {
-                label: '评价'
-            }, {
-                label: '商家'
-            }],
+            index: this.initialIndex,
             slideOption: {
                 listenScroll: true,
                 probeType: 3,
@@ -75,11 +73,6 @@ export default {
             const shouldTransformX = -dom.x / slideWidth * tabBarWidth
             this.$refs.tabBar.setSliderTransform(shouldTransformX)
         }
-    },
-    components: {
-        Goods,
-        Ratings,
-        Sellers
     }
 }
 </script>
