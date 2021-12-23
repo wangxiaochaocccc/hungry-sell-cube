@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Header :seller="seller"></Header>
-    <tab></tab>
+    <div class="tab-box">
+      <tab></tab>
+    </div>
   </div>
 </template>
 
@@ -35,5 +37,10 @@ export default {
 </script>
 
 <style lang="stylus">
-
+  .tab-box
+    position fixed
+    top 160px
+    left 0
+    right 0
+    bottom 0
 </style>

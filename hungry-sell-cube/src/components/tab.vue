@@ -5,6 +5,8 @@
             :data="tabs"
             :showSlider=true
             class="border-bottom-1px"
+            ref="tabBar"
+            :useTransition=false
         >
         </cube-tab-bar>
         <div class="tab-wrapper">
@@ -14,6 +16,8 @@
                 :showDots=false
                 :autoPlay=false
                 :loop=false
+                @scroll="onScroll"
+                :options="slideOption"
             >
                 <cube-slide-item>
                     <goods></goods>
@@ -44,7 +48,12 @@ export default {
                 label: '评价'
             }, {
                 label: '商家'
-            }]
+            }],
+            slideOption: {
+                listenScroll: true,
+                probeType: 3,
+                directionLockThreshold: 0
+            }
         }
     },
     computed: {
@@ -59,6 +68,14 @@ export default {
             }
         }
     },
+    methods: {
+        onScroll(dom) {
+            const tabBarWidth = this.$refs.tabBar.$el.clientWidth
+            const slideWidth = this.$refs.slide.slide.scrollerWidth
+            const shouldTransformX = -dom.x / slideWidth * tabBarWidth
+            this.$refs.tabBar.setSliderTransform(shouldTransformX)
+        }
+    },
     components: {
         Goods,
         Ratings,
@@ -70,6 +87,10 @@ export default {
     .tab-box
         display flex
         flex-direction column
+        height 100%
         >>> .cube-tab
             padding: 10px 0
+        .tab-wrapper
+            flex 1
+            overflow hidden
 </style>
