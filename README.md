@@ -1,2 +1,2 @@
 # hungry-sell-cube
-仿饿了么
+vue2+cube-ui
