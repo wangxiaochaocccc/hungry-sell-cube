@@ -18,9 +18,10 @@
                 :loop=false
                 @scroll="onScroll"
                 :options="slideOption"
+                @change="onChange"
             >
                 <cube-slide-item v-for="(item,index) in tabs" :key="index">
-                    <component :is='item.component' :data="item.data"></component>
+                    <component :is='item.component' :data="item.data" ref="component"></component>
                 </cube-slide-item>
             </cube-slide>
         </div>
@@ -66,12 +67,20 @@ export default {
             }
         }
     },
+    mounted() {
+        this.onChange(this.index)
+    },
     methods: {
         onScroll(dom) {
             const tabBarWidth = this.$refs.tabBar.$el.clientWidth
             const slideWidth = this.$refs.slide.slide.scrollerWidth
             const shouldTransformX = -dom.x / slideWidth * tabBarWidth
             this.$refs.tabBar.setSliderTransform(shouldTransformX)
+        },
+        onChange(cur) {
+            this.index = cur
+            const component = this.$refs.component[cur]
+            component.fetch && component.fetch()
         }
     }
 }
@@ -80,7 +89,7 @@ export default {
     .tab-box
         display flex
         flex-direction column
-        height 100%
+        // height 100% //这个会影响整个部分的高度从而导致scrollNav 出现问题
         >>> .cube-tab
             padding: 10px 0
         .tab-wrapper
