@@ -1,0 +1,89 @@
+<template>
+    <div>
+        <div class="shop-cart">
+            <div class="content-l">
+                <div class="shop-circle">
+                    <div class="logo">
+                        <i class="icon-shopping_cart"></i>
+                    </div>
+                </div>
+                <div class="price">￥{{minPrice}}</div>
+                <div class="line"></div>
+                <div class="distribution">另需配送费￥{{deliveryPrice}}元</div>
+            </div>
+            <div class="content-r">
+                ￥{{minPrice}}起送
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    name: 'shop-cart',
+    props: {
+        minPrice: {
+            type: Number,
+            default: 0
+        },
+        deliveryPrice: {
+            type: Number,
+            default: 0
+        }
+    }
+}
+</script>
+<style scoped lang="stylus">
+    @import "~common/stylus/variable.styl"
+    .shop-cart
+        display flex
+        width 100%
+        height 48px
+        background-color #141b27
+        .content-l
+            display flex
+            align-items center
+            flex 1
+            .shop-circle
+                width 46px
+                height 46px
+                background-color $color-background
+                border-radius 50%
+                margin-left 18px
+                margin-top -10px
+                padding 6px
+                margin-right 18px
+                .logo
+                    width 44px
+                    height 44px
+                    line-height 44px
+                    border-radius 50%
+                    font-size 24px
+                    color rgba(255, 255, 255, .4)
+                    background-color $color-dark-grey
+                    text-align center
+            .price
+                line-height 48px
+                font-size 16px
+                color rgba(255, 255, 255, .4)
+                font-weight bold
+                margin-right 12px
+            .line
+                background rgba(255, 255, 255, .4)
+                height 30px
+                width 1px
+                margin-right 12px
+            .distribution
+                line-height 48px
+                font-size 12px
+                color rgba(255, 255, 255, .4)
+                font-weight 400
+        .content-r
+            flex 0 0 105px
+            width 105px
+            line-height 48px
+            background rgba(44, 51, 58, 1)
+            color rgba(255, 255, 255, .4)
+            font-weight bold
+            text-align center
+</style>

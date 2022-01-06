@@ -35,14 +35,27 @@
             </cube-scroll-nav>
         </div>
         <div class="shop-cart-wrapper">
+            <shop-cart
+                :min-price="seller.minPrice"
+                :delivery-price="seller.deliveryPrice"
+            ></shop-cart>
         </div>
     </div>
 </template>
 
 <script>
     import { getGoods } from 'api'
+    import shopCart from 'components/shop-cart'
     export default {
         name: 'goods',
+        props: {
+            data: {
+                type: Object,
+                default() {
+                    return {}
+                }
+            }
+        },
         data() {
             return {
                 goods: [],
@@ -52,12 +65,20 @@
                 }
             }
         },
+        computed: {
+            seller() {
+                return this.data.seller
+            }
+        },
         methods: {
             fetch() {
                 getGoods().then(goods => {
                     this.goods = goods
                 })
             }
+        },
+        components: {
+            shopCart
         }
     }
 </script>
