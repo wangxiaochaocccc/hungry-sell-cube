@@ -28,6 +28,9 @@
                                     <span class="now">￥{{food.price}}</span>
                                     <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                                 </div>
+                                <div class="cart-control-wrapper">
+                                    <cart-control :food="food"></cart-control>
+                                </div>
                             </div>
                         </li>
                     </ul>
@@ -46,6 +49,7 @@
 <script>
     import { getGoods } from 'api'
     import shopCart from 'components/shop-cart'
+    import cartControl from 'components/cart-control'
     export default {
         name: 'goods',
         props: {
@@ -68,6 +72,17 @@
         computed: {
             seller() {
                 return this.data.seller
+            },
+            selectFoods() {
+                let food = []
+                this.goods.forEach(good => {
+                    good.foods.forEach(foods => {
+                        if (foods.count) {
+                            food.push(foods)
+                        }
+                    })
+                })
+                return food
             }
         },
         methods: {
@@ -78,7 +93,8 @@
             }
         },
         components: {
-            shopCart
+            shopCart,
+            cartControl
         }
     }
 </script>
@@ -131,6 +147,7 @@
                 img
                     height: auto
             .content
+                position relative
                 flex: 1
                 .name
                     margin: 2px 0 8px 0
@@ -159,6 +176,10 @@
                         text-decoration: line-through
                         font-size: $fontsize-small-s
                         color: $color-light-grey
+                .cart-control-wrapper
+                    position absolute
+                    right -14px
+                    bottom -8px
         .shop-cart-wrapper
             position: absolute
             left: 0
