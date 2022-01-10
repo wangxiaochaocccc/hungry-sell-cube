@@ -3,11 +3,14 @@
         <div class="shop-cart">
             <div class="content-l">
                 <div class="shop-circle">
-                    <div class="logo">
+                    <div class="logo" :class="{'highlight': totalPrice > 0}">
                         <i class="icon-shopping_cart"></i>
                     </div>
+                    <div class="num" v-show="totalPrice > 0">
+                        <bubble :num="totalCount"></bubble>
+                    </div>
                 </div>
-                <div class="price">￥{{totalPrice}}</div>
+                <div class="price" :class="{'highlight': totalPrice > 0}">￥{{totalPrice}}</div>
                 <div class="line"></div>
                 <div class="distribution">另需配送费￥{{deliveryPrice}}元</div>
             </div>
@@ -19,6 +22,7 @@
 </template>
 
 <script>
+import bubble from 'components/bubble'
 export default {
     name: 'shop-cart',
     props: {
@@ -61,7 +65,17 @@ export default {
             } else {
                 return 'not-enough'
             }
+        },
+        totalCount() {
+            let count = 0
+            this.selectFoods.forEach(food => {
+                count += food.count
+            })
+            return count
         }
+    },
+    components: {
+        bubble
     }
 }
 </script>
@@ -77,6 +91,7 @@ export default {
             align-items center
             flex 1
             .shop-circle
+                position relative
                 width 46px
                 height 46px
                 background-color $color-background
@@ -86,7 +101,7 @@ export default {
                 padding 6px
                 margin-right 18px
                 .logo
-                    width 44px
+                    // width 44px
                     height 44px
                     line-height 44px
                     border-radius 50%
@@ -94,12 +109,21 @@ export default {
                     color rgba(255, 255, 255, .4)
                     background-color $color-dark-grey
                     text-align center
+                    &.highlight
+                        background-color $color-blue
+                        color #fff
+                .num
+                    position absolute
+                    top 0
+                    right 0
             .price
                 line-height 48px
                 font-size 16px
                 color rgba(255, 255, 255, .4)
                 font-weight bold
                 margin-right 12px
+                &.highlight
+                    color #fff
             .line
                 background rgba(255, 255, 255, .4)
                 height 30px
