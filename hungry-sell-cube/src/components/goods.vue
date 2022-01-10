@@ -39,6 +39,7 @@
         </div>
         <div class="shop-cart-wrapper">
             <shop-cart
+                :select-foods="selectFoods"
                 :min-price="seller.minPrice"
                 :delivery-price="seller.deliveryPrice"
             ></shop-cart>

@@ -7,12 +7,12 @@
                         <i class="icon-shopping_cart"></i>
                     </div>
                 </div>
-                <div class="price">￥{{minPrice}}</div>
+                <div class="price">￥{{totalPrice}}</div>
                 <div class="line"></div>
                 <div class="distribution">另需配送费￥{{deliveryPrice}}元</div>
             </div>
-            <div class="content-r">
-                ￥{{minPrice}}起送
+            <div class="content-r" :class="payClass">
+                {{payDesc}}
             </div>
         </div>
     </div>
@@ -29,6 +29,38 @@ export default {
         deliveryPrice: {
             type: Number,
             default: 0
+        },
+        selectFoods: {
+            type: Array,
+            default() {
+                return []
+            }
+        }
+    },
+    computed: {
+        totalPrice() {
+            let total = 0
+            this.selectFoods.forEach(food => {
+                total += food.price * food.count
+            })
+            return total
+        },
+        payDesc() {
+            if (this.totalPrice === 0) {
+                return `￥${this.minPrice}起送`
+            } else if (this.totalPrice < this.minPrice) {
+                let midPrice = this.minPrice - this.totalPrice
+                return `还差￥${midPrice}起送`
+            } else {
+                return '去结算'
+            }
+        },
+        payClass() {
+            if (this.totalPrice > this.minPrice) {
+                return 'enough'
+            } else {
+                return 'not-enough'
+            }
         }
     }
 }
@@ -86,4 +118,7 @@ export default {
             color rgba(255, 255, 255, .4)
             font-weight bold
             text-align center
+        .enough
+            background-color $color-blue
+            color #fff
 </style>
